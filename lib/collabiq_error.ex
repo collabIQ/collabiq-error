@@ -30,6 +30,9 @@ defmodule CollabiqError do
   defp lookup(%{key: key, code: "can't be blank"}),
     do: %{message: "#{key} is required", code: "#{key}_required"}
 
+  defp lookup(%{key: _key, code: "is already in this org"}),
+    do: %{message: "user is already of member of this organization", code: "user_org_member"}
+
   defp lookup(%{key: key, code: "does not exist"}),
     do: %{message: "#{key} was not found", code: "#{key}_not_found"}
 
