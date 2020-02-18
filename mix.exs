@@ -4,7 +4,7 @@ defmodule CollabiqError.MixProject do
   def project do
     [
       app: :collabiq_error,
-      version: "0.1.1",
+      version: "0.1.2",
       elixir: "~> 1.9",
       test_coverage: [tool: ExCoveralls],
       preferred_cli_env: [coveralls: :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],

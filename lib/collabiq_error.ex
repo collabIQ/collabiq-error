@@ -1,12 +1,17 @@
 defmodule CollabiqError do
   @moduledoc false
 
+  # extracts errors from changesets
+  def format({:error, %{errors: errors}}) do
+    errors = Enum.map(errors, &format/1)
+
+    {:error, errors}
+  end
+
   # Handles multiple errors in a list and recursively sends
   # the back through format/1
   def format({:error, errors}) when is_list(errors) do
-    errors =
-      errors
-      |> Enum.map(&format/1)
+    errors = Enum.map(errors, &format/1)
 
     {:error, errors}
   end
@@ -22,7 +27,7 @@ defmodule CollabiqError do
   # Pattern matches most errors produced by CollabIQ
   def format(%{key: key, code: code}) do
     error = %{key: to_string(key), code: to_string(code)}
-    error |> lookup()
+    lookup(error)
   end
 
   def format(error), do: error |> lookup()
